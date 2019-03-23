@@ -342,25 +342,31 @@
   
 
   
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
 
-  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://tedhacker.top/2016/12/01/RabbitMQ使用简记/",
-  owner: 'TedHacker',
-  repo: 'Comments',
-  oauth: {
-    client_id: '08ffd6a6fd2350526617',
-    client_secret: '2c9027260805101b4da7e1268d2f8f7e4f6989dc',
-  },
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '08ffd6a6fd2350526617',
+  	clientSecret: '2c9027260805101b4da7e1268d2f8f7e4f6989dc',
+  	repo: 'Comments',
+  	owner: 'TedHacker',
+  	admin: ['TedHacker'],
+  	id: 'Thu Dec 01 2016 15:45:51 GMT+0800',
+  	distractionFreeMode: 'true'
 })
-gitment.render('gitment-ctn')
+gitalk.render('gitalk-container') 
+}
 </script>
+  
+
+  
+
+  
+
   
 
 
@@ -479,19 +485,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">REST</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dozer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dozer</a>
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">REST</a>
               </li>
              
               <li class="article-tag-list-item">
