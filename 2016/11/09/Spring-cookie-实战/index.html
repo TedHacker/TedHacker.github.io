@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Ted&#39;s Blog">
 <meta property="og:description" content="Cookie是什么简单来说，cookie就是浏览器储存在用户电脑上的一小段文本文件。cookie 是纯文本格式，不包含任何可执行的代码。一个web页面或服务器告知浏览器按照一定规范来储存这些信息，并在随后的请求中将这些信息发送至服务器，Web服务器就可以使用这些信息来识别不同的用户。大多数需要登录的网站在用户验证成功之后都会设置一个cookie，只要这个 cookie 存在，用户就可以自由浏览这个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://tedhacker.top/2016/11/09/Spring-cookie-实战/Spring-cookie-实战/cookie实例.png">
+<meta property="og:image" content="http://tedhacker.top/2016/11/09/Spring-cookie-实战/cookie实例.png">
 <meta property="og:updated_time" content="2016-11-09T07:49:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring cookie 实战">
 <meta name="twitter:description" content="Cookie是什么简单来说，cookie就是浏览器储存在用户电脑上的一小段文本文件。cookie 是纯文本格式，不包含任何可执行的代码。一个web页面或服务器告知浏览器按照一定规范来储存这些信息，并在随后的请求中将这些信息发送至服务器，Web服务器就可以使用这些信息来识别不同的用户。大多数需要登录的网站在用户验证成功之后都会设置一个cookie，只要这个 cookie 存在，用户就可以自由浏览这个">
-<meta name="twitter:image" content="http://tedhacker.top/2016/11/09/Spring-cookie-实战/Spring-cookie-实战/cookie实例.png">
+<meta name="twitter:image" content="http://tedhacker.top/2016/11/09/Spring-cookie-实战/cookie实例.png">
   
     <link rel="alternative" href="/atom.xml" title="Ted&#39;s Blog" type="application/atom+xml">
   
@@ -196,7 +196,7 @@
 <h4 id="新增cookie"><a href="#新增cookie" class="headerlink" title="新增cookie"></a>新增cookie</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/addCookie"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCookie</span><span class="params">(HttpServletRequest request,HttpServletResponse response)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    Cookie cookie=<span class="keyword">new</span> Cookie(<span class="string">"test"</span>,<span class="string">"hello cookie"</span>+System.currentTimeMillis());</span><br><span class="line">    cookie.setMaxAge(<span class="number">300</span>);<span class="comment">//设置生命周期以秒为单位</span></span><br><span class="line">    <span class="comment">//cookie.setDomain("localhost");//设置域名，跨域访问时使用</span></span><br><span class="line">    <span class="comment">//cookie.setPath("/");//设置路径，共享cookie时使用</span></span><br><span class="line">    response.addCookie(cookie);</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="显示请求中的cookie"><a href="#显示请求中的cookie" class="headerlink" title="显示请求中的cookie"></a>显示请求中的cookie</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/showCookie"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showCookie</span><span class="params">(HttpServletRequest request,HttpServletResponse response)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    Cookie[] cookies=request.getCookies();<span class="comment">//获取请求中的所有cookie</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">null</span>!=cookies) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">            <span class="comment">//输出cookie的标志(name)和值(value)</span></span><br><span class="line">            System.out.println(cookie.getName() + <span class="string">" - "</span> + cookie.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"cookies is null"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="通过Spring获取特定cookie"><a href="#通过Spring获取特定cookie" class="headerlink" title="通过Spring获取特定cookie"></a>通过Spring获取特定cookie</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.CookieValue;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/getCookie"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCookieBySpring</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        @CookieValue(value = <span class="string">"test"</span>, defaultValue = <span class="string">"hello"</span>)</span> String cookie) </span>&#123;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><p><img src="Spring-cookie-实战/cookie实例.png" alt="cookie实例"></p>
+<h4 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h4><p><img src="/2016/11/09/Spring-cookie-实战/cookie实例.png" alt="cookie实例"></p>
 <h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>如果有操作HttpServletResponse的输出流，要把cookie的操作放在输出流操作之前，不然在浏览器读不到cookie。</p>
 
       
@@ -586,15 +586,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">hero-theme-next</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
               </li>
              
               <li class="article-tag-list-item">
