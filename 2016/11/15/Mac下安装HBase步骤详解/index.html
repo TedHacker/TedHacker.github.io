@@ -64,6 +64,8 @@
 	        
 				<li><a href="/archives">归档</a></li>
 	        
+				<li><a href="/guestbook">留言</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -85,6 +87,8 @@
 			<div class="social">
 				
 					<a class="github" target="_blank" href="https://github.com/TedHacker" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:tedhacker@163.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -116,6 +120,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -123,16 +129,20 @@
 					
 						<a class="github" target="_blank" href="https://github.com/TedHacker" title="github"><i class="icon-github"></i></a>
 			        
+						<a class="mail" target="_blank" href="mailto:tedhacker@163.com" title="mail"><i class="icon-mail"></i></a>
+			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/archives">归档</a></li>
+					<li style="width: 33.333333333333336%"><a href="/archives">归档</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/guestbook">留言</a></li>
 		        
 				</ul>
 			</nav>
@@ -163,6 +173,16 @@
   	<time datetime="2016-11-15T07:49:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-15</time>
 </a>
         
+        <!--显示阅读次数-->
+
+  <br>
+  <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+  <span class="icon-sort"></span>
+  <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+            阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+  </span>
+  </a>
+  
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -358,6 +378,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase是什么"><span class="toc-number">1.</span> <span class="toc-text">HBase是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase安装"><span class="toc-number">2.</span> <span class="toc-text">HBase安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装命令"><span class="toc-number">2.1.</span> <span class="toc-text">安装命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置HBase"><span class="toc-number">2.2.</span> <span class="toc-text">配置HBase</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行HBase"><span class="toc-number">2.3.</span> <span class="toc-text">运行HBase</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证是否安装成功"><span class="toc-number">2.4.</span> <span class="toc-text">验证是否安装成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动HBase-Shell"><span class="toc-number">2.5.</span> <span class="toc-text">启动HBase Shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#停止HBase"><span class="toc-number">2.6.</span> <span class="toc-text">停止HBase</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HBase常用命令"><span class="toc-number">3.</span> <span class="toc-text">HBase常用命令</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -410,7 +443,14 @@ gitalk.render('gitalk-container')
       	</div>
     </div>
   </div>
+  <!-- PV方式，单个用户连续点击 n 篇，记录 n 次记录值 -->
+<span id="busuanzi_container_site_pv">    本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
+<!--  UV方式，单个用户连续点击 n 篇，记录 1 次记录值 -->
+<span id="busuanzi_container_site_uv">  本站访客数<span id="busuanzi_value_site_uv"></span>人次</span>
 </footer>
+<!--页面点击小红心-->
+<script type="text/javascript" src="/love.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -455,6 +495,8 @@ MathJax.Hub.Queue(function() {
 </script>
 
 
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
   <div class="tools-nav header-menu">
@@ -627,15 +669,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Kaptcha</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JCaptcha</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Log4j</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -796,5 +838,5 @@ MathJax.Hub.Queue(function() {
 
 </div>
   </div>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
 </html>
