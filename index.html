@@ -158,6 +158,131 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Mockito使用与原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/22/Mockito使用与原理/">Mockito使用与原理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/22/Mockito使用与原理/" class="archive-article-date">
+  	<time datetime="2019-09-22T07:28:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
+</a>
+        
+        <!--显示阅读次数-->
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目前，公司使用的是基于Dubbo的分布式开发策略，在开发和测试的过程中经常会遇到以下情况：</p>
+<ol>
+<li>依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试接口只能等同事把B模块开发完成。</li>
+<li>测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据是难上加难。</li>
+<li>依赖接口性能参数无法保障。在对接口性能压测的时候，需要依赖接口及时返回指定数据，满足上游接口的调用频度，但是服务提供方的不确定性造成性能压测环境极其不稳定。</li>
+</ol>
+<h3 id="什么是Mock"><a href="#什么是Mock" class="headerlink" title="什么是Mock"></a>什么是Mock</h3><ol>
+<li>依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试只能等同事把B模块开发完成。</li>
+<li>测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据更是难上加难。</li>
+<li>依赖接口性能参数无法保障。在对接口性能压测的时候，需要下游接口及时返回数据，满足上游接口的调用频度。</li>
+</ol>
+<p>在测试当中，mock 是指使用各种技术手段模拟出各种需要的资源以供测试使用。</p>
+<p>被 mock 的资源通常有以下特征：</p>
+<ul>
+<li><p>被测目标依赖该资源</p>
+</li>
+<li><p>该资源可能因为各种原因不稳定、返回结果不断变化或者并不总是能够获取到</p>
+</li>
+<li><p>该资源跟被测目标本身质量无关</p>
+</li>
+</ul>
+<p>这些资源可能是一个外部或底层接口、一个系统、一组数据对象或者是一整套目标软件的工作环境等。</p>
+<p>通过 mock 避免对外部真实资源的依赖实现对被测目标的孤立测试，从而大大降低测试的难度，节约测试成本。</p>
+<p>需要注意的是利用 mock 通过的测试与使用真实环境通过的测试毕竟还是有一定差别的。有些时候我们就是需要所测试的系统能够处理依赖所产生的各种情况，包括正常情况和异常情况，我们同样不能保证我们的mock 可以模拟到每种这样的情况。因此只在确实有必要的情况下才运用mock。</p>
+<h3 id="Mockito是什么"><a href="#Mockito是什么" class="headerlink" title="Mockito是什么"></a>Mockito是什么</h3><p>Mockito是GitHub上使用最广泛的Mock框架[<a href="https://github.com/mockito/mockito]，并能与JUnit等测试框架结合使用。" target="_blank" rel="noopener">https://github.com/mockito/mockito]，并能与JUnit等测试框架结合使用。</a></p>
+<p>Mockito框架可以创建和配置mock对象，使用Mockito可以简化具有外部依赖的类的测试开发工作。</p>
+<p>使用Mockito的步骤：</p>
+<ul>
+<li>模拟任何外部依赖并将这些模拟对象插入测试代码中</li>
+<li>执行测试中的代码</li>
+<li>验证代码是否按照预期执行</li>
+</ul>
+<p><img src="/2019/09/22/Mockito使用与原理/测试流程图.png" alt="测试流程图"></p>
+        
+          <a class="article-more-a" href="/2019/09/22/Mockito使用与原理/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mockito</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/22/Mockito使用与原理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java-util-concurrent包之tools" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1175,121 +1300,6 @@
 
 
   
-    <article id="post-HashMap源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/10/HashMap源码分析/">HashMap源码分析</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/10/HashMap源码分析/" class="archive-article-date">
-  	<time datetime="2016-12-10T08:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-10</time>
-</a>
-        
-        <!--显示阅读次数-->
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HashMap是什么"><a href="#HashMap是什么" class="headerlink" title="HashMap是什么"></a>HashMap是什么</h2><p>HashMap是一个基于哈希表的容器，可以提供数值之间的映射操作。允许使用null值和null键，但是不保证映射的顺序。另外，HashMap是非线程安全的，在多线程的环境下使用可能存在问题。</p>
-<p>常见使用方法：</p>
-<ul>
-<li><p>存：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(key,value);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>取：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.get(key);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>遍历：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;K, V&gt; entry : map.entrySet()) &#123;</span><br><span class="line">  Object key = entry.getKey();</span><br><span class="line">  Object value = entry.getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="源码版本：JDK-1-7-0"><a href="#源码版本：JDK-1-7-0" class="headerlink" title="源码版本：JDK 1.7.0"></a>源码版本：JDK 1.7.0</h2><h3 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* <span class="meta">@param</span> &lt;K&gt; the type of keys maintained by <span class="keyword">this</span> map</span><br><span class="line">* <span class="meta">@param</span> &lt;V&gt; the type of mapped values</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
-<p>HashMap继承于AbstractMap，同时实现了Map，Cloneable，Serializable接口。因此，HashMap可以被克隆（Cloneable）,同时也支持序列化（Serializable）。</p>
-        
-          <a class="article-more-a" href="/2016/12/10/HashMap源码分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">HashMap</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">容器</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/10/HashMap源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1505,6 +1515,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mockito</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Druid</a>
               </li>
              
@@ -1529,6 +1543,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">AspectJ</a>
               </li>
              
@@ -1538,10 +1556,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">ThreadPool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Cookie</a>
               </li>
              
               <li class="article-tag-list-item">

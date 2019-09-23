@@ -158,6 +158,121 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-HashMap源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/10/HashMap源码分析/">HashMap源码分析</a>
+    </h1>
+  
+
+        
+        <a href="/2016/12/10/HashMap源码分析/" class="archive-article-date">
+  	<time datetime="2016-12-10T08:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-10</time>
+</a>
+        
+        <!--显示阅读次数-->
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HashMap是什么"><a href="#HashMap是什么" class="headerlink" title="HashMap是什么"></a>HashMap是什么</h2><p>HashMap是一个基于哈希表的容器，可以提供数值之间的映射操作。允许使用null值和null键，但是不保证映射的顺序。另外，HashMap是非线程安全的，在多线程的环境下使用可能存在问题。</p>
+<p>常见使用方法：</p>
+<ul>
+<li><p>存：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(key,value);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.get(key);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;K, V&gt; entry : map.entrySet()) &#123;</span><br><span class="line">  Object key = entry.getKey();</span><br><span class="line">  Object value = entry.getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="源码版本：JDK-1-7-0"><a href="#源码版本：JDK-1-7-0" class="headerlink" title="源码版本：JDK 1.7.0"></a>源码版本：JDK 1.7.0</h2><h3 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* <span class="meta">@param</span> &lt;K&gt; the type of keys maintained by <span class="keyword">this</span> map</span><br><span class="line">* <span class="meta">@param</span> &lt;V&gt; the type of mapped values</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p>HashMap继承于AbstractMap，同时实现了Map，Cloneable，Serializable接口。因此，HashMap可以被克隆（Cloneable）,同时也支持序列化（Serializable）。</p>
+        
+          <a class="article-more-a" href="/2016/12/10/HashMap源码分析/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">HashMap</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">容器</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">源码分析</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/10/HashMap源码分析/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-RabbitMQ使用简记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1136,100 +1251,6 @@
 
 
   
-    <article id="post-《设计模式的艺术-软件开发人员内功修炼之道》简记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/13/《设计模式的艺术-软件开发人员内功修炼之道》简记/">《设计模式的艺术:软件开发人员内功修炼之道》简记</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/13/《设计模式的艺术-软件开发人员内功修炼之道》简记/" class="archive-article-date">
-  	<time datetime="2016-09-13T01:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-13</time>
-</a>
-        
-        <!--显示阅读次数-->
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="7种常用的面向对象设计原则"><a href="#7种常用的面向对象设计原则" class="headerlink" title="7种常用的面向对象设计原则"></a>7种常用的面向对象设计原则</h3><p>1：单一职责原则 一个类只负责一个功能领域中的相应职责<br>2：开闭原则 软件实体应对扩展开放，而对修改关闭<br>3：里氏代换原则 所有引用基类对象的地方能够透明地使用其子类的对象<br>4：依赖倒转原则 抽象不应该依赖于细节，细节应该依赖于抽象<br>5：接口隔离原则 使用多个专门的接口，而不使用单一的总接口<br>6：合成复用原则 尽量使用对象组合，而不是继承来达到复用的目的<br>7：迪米特法则 一个软件实体应当尽可能少地与其他实体发生相互作用</p>
-<p>1：单一职责原则（Single Responsibility Rrinciple， SRP）：一个类只负责一个功能领域中的相应职责。或者可以定义为：就一个类而言，应该只有一个引起它变化的原因。<br>2：开闭原则（Open-Closed Principle，OCP）：一个软件实体应当对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展。<br>3：里氏代换原则（Liskov Subsititution Principle，LSP）：所有引用基类（父类）的地方必须能透明地使用其子类对象。<br>4：依赖倒转原则（Dependency Inversion Principle，DIP）：抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程。<br>     依赖注入是指当一个对象要与其他对象发生依赖关系时，通过抽象来注入所依赖的对象。<br>     常用的注入方式有3种：构造注入，设值注入和接口注入。<br>5：接口隔离原则（Interface Segregation Principle，ISP）：使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。<br>6：合成复用原则（Composite Reuse Rrinciple，CRP）：尽量使用对象组合，而不是继承来达到复用的目的。<br>7：迪米特法则（Law of Demeter，LoD）：一个软件实体应当尽可能少地与其他实体发生相互作用。<br></p>
-        
-          <a class="article-more-a" href="/2016/09/13/《设计模式的艺术-软件开发人员内功修炼之道》简记/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/读书笔记//" class="article-tag-list-link color5">读书笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/13/《设计模式的艺术-软件开发人员内功修炼之道》简记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1445,6 +1466,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mockito</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Druid</a>
               </li>
              
@@ -1469,6 +1494,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Cookie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">AspectJ</a>
               </li>
              
@@ -1478,10 +1507,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">ThreadPool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Cookie</a>
               </li>
              
               <li class="article-tag-list-item">

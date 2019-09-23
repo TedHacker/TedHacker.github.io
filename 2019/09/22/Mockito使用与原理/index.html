@@ -6,36 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://tedhacker.top">
-  <title>Hive使用总结 | Ted&#39;s Blog</title>
+  <title>Mockito使用与原理 | Ted&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，它专为OLAP设计，可以执行复杂的分析操作。本文总结了Hive的常用操作。 基础类型Hive支持的数据类型如下:    数据类型 长度 例子     TINYINT 1byte有符号整数 20   SMALLINT 2byte有符号整数 20   INT 4byte有符号整数 20">
-<meta name="keywords" content="Hive">
+  <meta name="description" content="目前，公司使用的是基于Dubbo的分布式开发策略，在开发和测试的过程中经常会遇到以下情况：  依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试接口只能等同事把B模块开发完成。 测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据是难上加难。 依赖接口性能参数无法保障。在对接口性能压测的时候，需要依赖接口及时返回">
+<meta name="keywords" content="Java,Mockito,mock">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hive使用总结">
-<meta property="og:url" content="http://tedhacker.top/2018/11/03/Hive使用总结/index.html">
+<meta property="og:title" content="Mockito使用与原理">
+<meta property="og:url" content="http://tedhacker.top/2019/09/22/Mockito使用与原理/index.html">
 <meta property="og:site_name" content="Ted&#39;s Blog">
-<meta property="og:description" content="Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，它专为OLAP设计，可以执行复杂的分析操作。本文总结了Hive的常用操作。 基础类型Hive支持的数据类型如下:    数据类型 长度 例子     TINYINT 1byte有符号整数 20   SMALLINT 2byte有符号整数 20   INT 4byte有符号整数 20">
+<meta property="og:description" content="目前，公司使用的是基于Dubbo的分布式开发策略，在开发和测试的过程中经常会遇到以下情况：  依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试接口只能等同事把B模块开发完成。 测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据是难上加难。 依赖接口性能参数无法保障。在对接口性能压测的时候，需要依赖接口及时返回">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/创建表.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/删除表.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/LoadData.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/CreateAs.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/InsertInto.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/InsertOverwrite.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/原始数据.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/等值连接.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/左外连接.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/右外连接.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/左半连接.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/if.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/nvl.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/coalesce.png">
-<meta property="og:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/case.png">
-<meta property="og:updated_time" content="2019-03-24T17:04:53.000Z">
+<meta property="og:image" content="http://tedhacker.top/2019/09/22/Mockito使用与原理/测试流程图.png">
+<meta property="og:image" content="http://tedhacker.top/2019/09/22/Mockito使用与原理/mockito类图.png">
+<meta property="og:image" content="http://tedhacker.top/2019/09/22/Mockito使用与原理/代理方法.png">
+<meta property="og:updated_time" content="2019-09-23T04:52:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hive使用总结">
-<meta name="twitter:description" content="Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，它专为OLAP设计，可以执行复杂的分析操作。本文总结了Hive的常用操作。 基础类型Hive支持的数据类型如下:    数据类型 长度 例子     TINYINT 1byte有符号整数 20   SMALLINT 2byte有符号整数 20   INT 4byte有符号整数 20">
-<meta name="twitter:image" content="http://tedhacker.top/2018/11/03/Hive使用总结/创建表.png">
+<meta name="twitter:title" content="Mockito使用与原理">
+<meta name="twitter:description" content="目前，公司使用的是基于Dubbo的分布式开发策略，在开发和测试的过程中经常会遇到以下情况：  依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试接口只能等同事把B模块开发完成。 测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据是难上加难。 依赖接口性能参数无法保障。在对接口性能压测的时候，需要依赖接口及时返回">
+<meta name="twitter:image" content="http://tedhacker.top/2019/09/22/Mockito使用与原理/测试流程图.png">
   
     <link rel="alternative" href="/atom.xml" title="Ted&#39;s Blog" type="application/atom+xml">
   
@@ -173,20 +161,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Hive使用总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Mockito使用与原理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hive使用总结
+      Mockito使用与原理
     </h1>
   
 
         
-        <a href="/2018/11/03/Hive使用总结/" class="archive-article-date">
-  	<time datetime="2018-11-03T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-03</time>
+        <a href="/2019/09/22/Mockito使用与原理/" class="archive-article-date">
+  	<time datetime="2019-09-22T07:28:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
 </a>
         
         <!--显示阅读次数-->
@@ -203,374 +191,84 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，它专为OLAP设计，可以执行复杂的分析操作。本文总结了Hive的常用操作。</p>
-<h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><p>Hive支持的数据类型如下:</p>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>长度</th>
-<th>例子</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>TINYINT</td>
-<td>1byte有符号整数</td>
-<td>20</td>
-</tr>
-<tr>
-<td>SMALLINT</td>
-<td>2byte有符号整数</td>
-<td>20</td>
-</tr>
-<tr>
-<td>INT</td>
-<td>4byte有符号整数</td>
-<td>20</td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>8byte有符号整数</td>
-<td>20</td>
-</tr>
-<tr>
-<td>BOOLEAN</td>
-<td>布尔类型，true或者false</td>
-<td>TRUE</td>
-</tr>
-<tr>
-<td>FLOAT</td>
-<td>单精度浮点数</td>
-<td>3.14159</td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>双精度浮点数</td>
-<td>3.14159</td>
-</tr>
-<tr>
-<td>STRING</td>
-<td>字符序列</td>
-<td>‘now is the time’</td>
-</tr>
-<tr>
-<td>TIMESTAMP</td>
-<td>整数，浮点数或者字符串</td>
-<td>1327882394</td>
-</tr>
-<tr>
-<td>BINARY</td>
-<td>字节数组</td>
-</tr>
-</tbody>
-</table>
-<p>Hive同时也支持如下算术运算符：</p>
-<table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A+B</td>
-<td>数值</td>
-<td>A和B相加</td>
-</tr>
-<tr>
-<td>A-B</td>
-<td>数值</td>
-<td>A减去B</td>
-</tr>
-<tr>
-<td>A*B</td>
-<td>数值</td>
-<td>A和B相乘</td>
-</tr>
-<tr>
-<td>A/B</td>
-<td>数值</td>
-<td>A除以B。如果能整除，那么返回商数。</td>
-</tr>
-<tr>
-<td>A%B</td>
-<td>数值</td>
-<td>A除以B的余数。</td>
-</tr>
-<tr>
-<td>A&amp;B</td>
-<td>数值</td>
-<td>A和B按位取与。</td>
-</tr>
-<tr>
-<td>A\B</td>
-<td>数值</td>
-<td>A和B按位取或</td>
-</tr>
-<tr>
-<td>A^B</td>
-<td>数值</td>
-<td>A和B按位取异或。</td>
-</tr>
-<tr>
-<td>~A</td>
-<td>数值</td>
-<td>A按位取反。</td>
-</tr>
-</tbody>
-</table>
-<a id="more"></a>
-<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CAST(expr as &lt;type&gt;)</span><br></pre></td></tr></table></figure>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select CAST(&apos;1&apos; as BIGINT);</span><br></pre></td></tr></table></figure>
-<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.] table_name</span><br><span class="line">[(col_name data_type [COMMENT col_comment], ...)]</span><br><span class="line">[COMMENT table_comment]</span><br><span class="line">[ROW FORMAT row_format]</span><br><span class="line">[STORED AS file_format]</span><br></pre></td></tr></table></figure>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `employee`(</span><br><span class="line">user_id int COMMENT &apos;employee id&apos;,</span><br><span class="line">name string COMMENT &apos;employee name&apos;</span><br><span class="line">)COMMENT &apos;employee info&apos;</span><br><span class="line">ROW FORMAT DELIMITED FIELDS TERMINATED BY &apos;\t&apos; STORED AS TEXTFILE;</span><br></pre></td></tr></table></figure>
-<p>执行结果</p>
-<p><img src="/2018/11/03/Hive使用总结/创建表.png" alt="创建表"></p>
-<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE [IF EXISTS] table_name;</span><br></pre></td></tr></table></figure>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS employee;</span><br></pre></td></tr></table></figure>
-<p>执行结果</p>
-<p><img src="/2018/11/03/Hive使用总结/删除表.png" alt="删除表"></p>
-<h3 id="加载数据"><a href="#加载数据" class="headerlink" title="加载数据"></a>加载数据</h3><p>在Hive中，一般使用LOAD DATA插入数据，数据来源一般为两种，一种是从本地文件系统，第二种是从hadoop文件系统。</p>
-<p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD DATA [LOCAL] INPATH &apos;filepath&apos; [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1, partcol2=val2 ...)]</span><br></pre></td></tr></table></figure>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOAD DATA LOCAL INPATH &apos;/Users/ted/Desktop/hivetest/employee&apos; OVERWRITE INTO TABLE employee;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/LoadData.png" alt="LoadData"></p>
-<p>注意：文件的分隔符要和建表语句定义的一致，不然会出现异常的null数值。</p>
-<h3 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h3><p>Hive新增数据有两种语法：insert into和insert overwrite。</p>
-<p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TABLE tablename1 [PARTITION (partcol1=val1, partcol2=val2 ...)] select_statement1 FROM from_statement;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT OVERWRITE TABLE tablename1 [PARTITION (partcol1=val1, partcol2=val2 ...) [IF NOT EXISTS]] select_statement1 FROM from_statement;</span><br></pre></td></tr></table></figure>
-<p>insert into 只是简单的插入，不考虑原始表的数据，直接追加到表中。</p>
-<p>insert overwrite 会覆盖已经存在的数据，会先现将原始表的数据remove，再插入新数据。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `employee_backup` as</span><br><span class="line">SELECT * FROM employee;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/CreateAs.png" alt="CreateAs"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO TABLE employee_backup</span><br><span class="line">SELECT * FROM employee WHERE user_id=10;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/InsertInto.png" alt="InsertInto"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT OVERWRITE TABLE employee_backup</span><br><span class="line">SELECT * FROM employee WHERE user_id!=10;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/InsertOverwrite.png" alt="InsertOverwrite"></p>
-<h3 id="表连接"><a href="#表连接" class="headerlink" title="表连接"></a>表连接</h3><p>原始数据</p>
-<p><img src="/2018/11/03/Hive使用总结/原始数据.png" alt="原始数据"></p>
-<h5 id="等值连接"><a href="#等值连接" class="headerlink" title="等值连接"></a>等值连接</h5><p>join即等值连接，只有某个值在两个表中同时存在才会被检索出来。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee a join work_list b on a.user_id=b.user_id;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/等值连接.png" alt="等值连接"></p>
-<h5 id="左外连接"><a href="#左外连接" class="headerlink" title="左外连接"></a>左外连接</h5><p>left outer join即左外连接，左边表中的值无论是否存在右表中，都会输出，但是右表中的记录只有在左表中存在时才会输出。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee a left outer join work_list b on a.user_id=b.user_id;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/左外连接.png" alt="左外连接"></p>
-<h5 id="右外连接"><a href="#右外连接" class="headerlink" title="右外连接"></a>右外连接</h5><p>right outer join即右外连接，右边表中的值无论是否存在左表中，都会输出，但是左表中的记录只有在右边中存在时才会输出。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee a right outer join work_list b on a.user_id=b.user_id;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/右外连接.png" alt="右外连接"></p>
-<h5 id="左半连接"><a href="#左半连接" class="headerlink" title="左半连接"></a>左半连接</h5><p>left semi join即左半连接，类似于存在判断。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee a left semi join work_list b on a.user_id=b.user_id;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/左半连接.png" alt="左半连接"></p>
-<p>逻辑类似于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee where user_id in (select user_id from work_list);</span><br></pre></td></tr></table></figure>
-<h3 id="条件函数"><a href="#条件函数" class="headerlink" title="条件函数"></a>条件函数</h3><h5 id="IF"><a href="#IF" class="headerlink" title="IF"></a>IF</h5><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IF(boolean condition, T trueValue, T falseValue)</span><br></pre></td></tr></table></figure>
-<p>当条件condition为TRUE时，返回trueValue；否则返回falseValue。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select *,IF(name=&apos;ted&apos;,true,false) from employee;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/if.png" alt="if"></p>
-<h5 id="NVL"><a href="#NVL" class="headerlink" title="NVL"></a>NVL</h5><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NVL(T v1,T v2)</span><br></pre></td></tr></table></figure>
-<p>如果v1为空那么显示v2值，如果v1的值不为空，则显示v1本来的值。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select NVL(null,user_id) from employee where user_id=10;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/nvl.png" alt="nvl"></p>
-<h5 id="COALESCE"><a href="#COALESCE" class="headerlink" title="COALESCE"></a>COALESCE</h5><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COALESCE(T v1, T v2, …)</span><br></pre></td></tr></table></figure>
-<p>返回参数中的第一个非空值；如果所有值都为NULL，那么返回NULL。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select COALESCE(null,user_id,name) from employee where user_id=10;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/coalesce.png" alt="coalesce"></p>
-<h5 id="CASE"><a href="#CASE" class="headerlink" title="CASE"></a>CASE</h5><p>语法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CASE  [ expression ] </span><br><span class="line">  WHEN condition1 THEN result1 </span><br><span class="line">  WHEN condition2 THEN result2 </span><br><span class="line">  ... </span><br><span class="line">  WHEN conditionn THEN resultn </span><br><span class="line">  ELSE result </span><br><span class="line">END</span><br></pre></td></tr></table></figure>
-<p>如果expression满足某个condition，就返回对应result，不然返回ELSE里面的result。</p>
-<p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select work_id,work_time,</span><br><span class="line">CASE</span><br><span class="line">WHEN work_time&gt;=60 THEN &apos;A&apos;</span><br><span class="line">WHEN work_time&gt;=30 THEN &apos;B&apos;</span><br><span class="line">ELSE &apos;C&apos;</span><br><span class="line">END as grade</span><br><span class="line">from work_list;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/03/Hive使用总结/case.png" alt="case"></p>
-<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>返回值类型</th>
-<th>描述</th>
-<th>例如</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>unix_timestamp()</td>
-<td>bigint</td>
-<td>获得当前时间戳</td>
-<td>unix_timestamp()</td>
-</tr>
-<tr>
-<td>unix_timestamp(string date)</td>
-<td>bigint</td>
-<td>获得date表示的时间戳</td>
-<td>unix_timestamp(‘2018-08-08 21:00:00’)</td>
-</tr>
-<tr>
-<td>from_unixtime(int unixtime)</td>
-<td>string</td>
-<td>将时间戳转换为日期时间字符串</td>
-<td>from_unixtime(1533762000)</td>
-</tr>
-<tr>
-<td>to_date(string timestamp)</td>
-<td>bigint</td>
-<td>返回日期字符串</td>
-<td>select to_date(‘2018-08-08 21:00:00’)</td>
-</tr>
-<tr>
-<td>year(string date)</td>
-<td>int</td>
-<td>返回年</td>
-<td>year(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>month(string date)</td>
-<td>int</td>
-<td>返回月</td>
-<td>month(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>day(string date)</td>
-<td>int</td>
-<td>返回日</td>
-<td>day(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>dayofmonth(string date)</td>
-<td>int</td>
-<td>返回日</td>
-<td>dayofmonth(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>hour(string date)</td>
-<td>int</td>
-<td>返回小时</td>
-<td>hour(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>minute(string date)</td>
-<td>int</td>
-<td>返回分钟</td>
-<td>minute(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>second(string date)</td>
-<td>int</td>
-<td>返回秒</td>
-<td>second(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>weekofyear(string date)</td>
-<td>int</td>
-<td>返回周</td>
-<td>weekofyear(‘2018-08-08 21:59:58’)</td>
-</tr>
-<tr>
-<td>datediff(string endDate, string startDate)</td>
-<td>int</td>
-<td>返回天数差</td>
-<td>datediff(‘2018-08-11 21:59:58’,’2018-08-08 12:59:58’)</td>
-</tr>
-<tr>
-<td>date_add(string startdate, int days)</td>
-<td>string</td>
-<td>startDate加days天数</td>
-<td>date_add(‘2018-08-08 21:59:58’,5)</td>
-</tr>
-<tr>
-<td>date_sub(string startdate, int days)</td>
-<td>string</td>
-<td>startDate减days天数</td>
-<td>date_sub(‘2018-08-08 21:59:58’,5)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="字符串转换"><a href="#字符串转换" class="headerlink" title="字符串转换"></a>字符串转换</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>返回值类型</th>
-<th>描述</th>
-<th>例如</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>length(string s)</td>
-<td>int</td>
-<td>返回字符串长度</td>
-<td>length(‘hello world’)</td>
-</tr>
-<tr>
-<td>reverse(string s)</td>
-<td>string</td>
-<td>反转字符串</td>
-<td>reverse(‘hello world’)</td>
-</tr>
-<tr>
-<td>concat(string a, string b…)</td>
-<td>string</td>
-<td>合并字符串</td>
-<td>concat(‘hello’,’+’,’world’)</td>
-</tr>
-<tr>
-<td>substr(string s, int start)</td>
-<td>string</td>
-<td>返回子串</td>
-<td>substr(‘hello world’,7)</td>
-</tr>
-<tr>
-<td>upper(string s)</td>
-<td>string</td>
-<td>转换为大写</td>
-<td>upper(‘hello’)</td>
-</tr>
-<tr>
-<td>lower(string s)</td>
-<td>string</td>
-<td>转换为小写</td>
-<td>lower(‘HELLO’)</td>
-</tr>
-<tr>
-<td>trim(string s)</td>
-<td>string</td>
-<td>去除空格符</td>
-<td>trim(‘ world ‘)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="开窗函数"><a href="#开窗函数" class="headerlink" title="开窗函数"></a>开窗函数</h3><p>普通的聚合函数聚合的行集是组，开窗函数聚合的行集是窗口。</p>
-<p>因此，普通的聚合函数每组只返回一个值，而开窗函数则可为窗口中的每行都返回一个值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table statistics_base_orders</span><br><span class="line">select id,order_id,billno,warehouse_id,warehouse_type,logis_company_id,logis_company_code,from</span><br><span class="line">(select *,row_number() over (partition by order_id,billno order by db_update_time desc) as rows</span><br><span class="line">from statistics_base_orders) a</span><br><span class="line">where rows=1</span><br></pre></td></tr></table></figure>
-<h3 id="WITH查询"><a href="#WITH查询" class="headerlink" title="WITH查询"></a>WITH查询</h3><p>Hive 可以通过with查询来提高查询性能。先通过with语法将重复使用的数据查询到内存，后面其它查询可以直接使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with tmp as (select * from employee where name=&apos;ted&apos;)</span><br><span class="line">select * from tmp;</span><br></pre></td></tr></table></figure>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-Keywords,Non-reservedKeywordsandReservedKeywords" target="_blank" rel="noopener">Hive保留关键字</a></li>
-<li><p><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inAggregateFunctions(UDAF" target="_blank" rel="noopener">Hive聚合函数</a></p>
-</li>
-<li><p>《Hive编程指南》</p>
-</li>
+        <p>目前，公司使用的是基于Dubbo的分布式开发策略，在开发和测试的过程中经常会遇到以下情况：</p>
+<ol>
+<li>依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试接口只能等同事把B模块开发完成。</li>
+<li>测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据是难上加难。</li>
+<li>依赖接口性能参数无法保障。在对接口性能压测的时候，需要依赖接口及时返回指定数据，满足上游接口的调用频度，但是服务提供方的不确定性造成性能压测环境极其不稳定。</li>
 </ol>
+<h3 id="什么是Mock"><a href="#什么是Mock" class="headerlink" title="什么是Mock"></a>什么是Mock</h3><ol>
+<li>依赖接口不通。自己开发A模块，同事开发B模块，自己的开发进度比同事快，但系统上A模块依赖于B模块的服务，要测试只能等同事把B模块开发完成。</li>
+<li>测试数据难以构造。当需要测试接口的边缘场景时，真实场景的复杂性造成生成测试数据更是难上加难。</li>
+<li>依赖接口性能参数无法保障。在对接口性能压测的时候，需要下游接口及时返回数据，满足上游接口的调用频度。</li>
+</ol>
+<p>在测试当中，mock 是指使用各种技术手段模拟出各种需要的资源以供测试使用。</p>
+<p>被 mock 的资源通常有以下特征：</p>
+<ul>
+<li><p>被测目标依赖该资源</p>
+</li>
+<li><p>该资源可能因为各种原因不稳定、返回结果不断变化或者并不总是能够获取到</p>
+</li>
+<li><p>该资源跟被测目标本身质量无关</p>
+</li>
+</ul>
+<p>这些资源可能是一个外部或底层接口、一个系统、一组数据对象或者是一整套目标软件的工作环境等。</p>
+<p>通过 mock 避免对外部真实资源的依赖实现对被测目标的孤立测试，从而大大降低测试的难度，节约测试成本。</p>
+<p>需要注意的是利用 mock 通过的测试与使用真实环境通过的测试毕竟还是有一定差别的。有些时候我们就是需要所测试的系统能够处理依赖所产生的各种情况，包括正常情况和异常情况，我们同样不能保证我们的mock 可以模拟到每种这样的情况。因此只在确实有必要的情况下才运用mock。</p>
+<h3 id="Mockito是什么"><a href="#Mockito是什么" class="headerlink" title="Mockito是什么"></a>Mockito是什么</h3><p>Mockito是GitHub上使用最广泛的Mock框架[<a href="https://github.com/mockito/mockito]，并能与JUnit等测试框架结合使用。" target="_blank" rel="noopener">https://github.com/mockito/mockito]，并能与JUnit等测试框架结合使用。</a></p>
+<p>Mockito框架可以创建和配置mock对象，使用Mockito可以简化具有外部依赖的类的测试开发工作。</p>
+<p>使用Mockito的步骤：</p>
+<ul>
+<li>模拟任何外部依赖并将这些模拟对象插入测试代码中</li>
+<li>执行测试中的代码</li>
+<li>验证代码是否按照预期执行</li>
+</ul>
+<p><img src="/2019/09/22/Mockito使用与原理/测试流程图.png" alt="测试流程图"></p>
+<a id="more"></a>
+<h3 id="Mockito的主要方法"><a href="#Mockito的主要方法" class="headerlink" title="Mockito的主要方法"></a>Mockito的主要方法</h3><h4 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mockito<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mockito-all<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.10.19<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="方法调用验证"><a href="#方法调用验证" class="headerlink" title="方法调用验证"></a>方法调用验证</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">verifyBehaviour</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//创建mock对象</span></span><br><span class="line">   List mockedList = mock(List.class);</span><br><span class="line">   <span class="comment">//使用mock对象</span></span><br><span class="line">   mockedList.add(<span class="string">"one"</span>);</span><br><span class="line">   mockedList.clear();</span><br><span class="line">   <span class="comment">//验证方法被调用过</span></span><br><span class="line">   verify(mockedList).add(<span class="string">"one"</span>);</span><br><span class="line">   <span class="comment">//验证方法没有被调用过</span></span><br><span class="line">   verify(mockedList,never()).add(<span class="string">"two"</span>);</span><br><span class="line">   <span class="comment">//验证方法被调用过1次</span></span><br><span class="line">   verify(mockedList,times(<span class="number">1</span>)).add(<span class="string">"one"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>org.mockito.Mockito.mock(Class<t> classToMock) 创建参数类的mock对象</t></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CheckReturnValue</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">mock</span><span class="params">(Class&lt;T&gt; classToMock)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mock(classToMock, withSettings());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>org.mockito.Mockito.verify(T mock) 验证指定行为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CheckReturnValue</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">verify</span><span class="params">(T mock)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> MOCKITO_CORE.verify(mock, times(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<p>新增验证<code>verify(mockedList).isEmpty();</code>，会产生异常 Wanted but not invoked: list.isEmpty();</p>
+<p>新增验证<code>verify(mockedList,times(2)).add(&quot;one&quot;);</code>，会产生异常org.mockito.exceptions.verification.TooLittleActualInvocations: Wanted 2 times, But was 1 time.</p>
+<h4 id="参数匹配"><a href="#参数匹配" class="headerlink" title="参数匹配"></a>参数匹配</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">verifyBehaviour</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//创建mock对象</span></span><br><span class="line">   List&lt;String&gt; mockedList = mock(List.class);</span><br><span class="line">   <span class="comment">//返回null，因为没有mock对应行为</span></span><br><span class="line">   System.out.println(mockedList.get(<span class="number">999</span>));</span><br><span class="line">   <span class="comment">//mock对象的get方法，参数为任意int类型，返回"element"</span></span><br><span class="line">   when(mockedList.get(anyInt())).thenReturn(<span class="string">"element"</span>);</span><br><span class="line">   <span class="comment">//返回"element"</span></span><br><span class="line">   System.out.println(mockedList.get(<span class="number">999</span>));</span><br><span class="line">   <span class="comment">//也可以在验证的时候使用参数匹配</span></span><br><span class="line">   verify(mockedList,times(<span class="number">2</span>)).get(anyInt());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>org.mockito.ArgumentMatchers.any() 匹配任意参数，包括null和数组。</p>
+<p>org.mockito.ArgumentMatchers.any(Class<t> type) 匹配指定类型，不包含null。</t></p>
+<p>org.mockito.ArgumentMatchers.anyBoolean() 匹配任意布尔类型，不包含null。</p>
+<p>org.mockito.ArgumentMatchers.anyInt() 匹配任意int类型，不包含null。</p>
+<p>org.mockito.ArgumentMatchers.anyList()匹配任意list类型，不包含null。</p>
+<p>org.mockito.ArgumentMatchers.anyCollection() 匹配任意集合类型，不包含null。</p>
+<h4 id="模拟异常"><a href="#模拟异常" class="headerlink" title="模拟异常"></a>模拟异常</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">verifyBehaviour</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//创建mock对象</span></span><br><span class="line">   List&lt;String&gt; mockedList = mock(List.class);</span><br><span class="line">   doThrow(<span class="keyword">new</span> RuntimeException()).when(mockedList).clear();</span><br><span class="line">   mockedList.clear();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：java.lang.RuntimeException<br>                   at com.ted.mockito.MockitoApplicationTests.verifyBehaviour(MockitoApplicationTests.java)</p>
+<p>类似模拟方法</p>
+<ul>
+<li><p>doReturn(Object)</p>
+</li>
+<li><p>doThrow(Throwable…)</p>
+</li>
+<li><p>doThrow(Class)</p>
+</li>
+<li><p>doAnswer(Answer)</p>
+</li>
+<li><p>doNothing()</p>
+</li>
+<li><p>doCallRealMethod()</p>
+</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>@Mock 创建mock对象</p>
+<p>@InjectMocks 在创建的对象中注入mock对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mock</span></span><br><span class="line"><span class="keyword">private</span> MockedClass mockedObj;</span><br><span class="line"><span class="meta">@InjectMock</span></span><br><span class="line"><span class="keyword">private</span> TestedClass TestedObj;</span><br></pre></td></tr></table></figure>
+<p>如果TestedClass有MockedClass的成员变量，则@Mock生成的对象将会被注入待测试对象中。</p>
+<h3 id="Mockito的原理"><a href="#Mockito的原理" class="headerlink" title="Mockito的原理"></a>Mockito的原理</h3><p>Mockito主要是生成了指定类的代理对象，通过代理模式实现对象行为的模拟。</p>
+<p><img src="/2019/09/22/Mockito使用与原理/mockito类图.png" alt="mockito类图"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">mock</span><span class="params">(Class&lt;T&gt; typeToMock, MockSettings settings)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!MockSettingsImpl.class.isInstance(settings)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unexpected implementation of '"</span> + settings.getClass().getCanonicalName() + <span class="string">"'\n"</span> + <span class="string">"At the moment, you cannot provide your own implementations of that class."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    MockSettingsImpl impl = MockSettingsImpl.class.cast(settings);</span><br><span class="line">    MockCreationSettings&lt;T&gt; creationSettings = impl.build(typeToMock);</span><br><span class="line">    T mock = createMock(creationSettings);</span><br><span class="line">    mockingProgress().mockingStarted(mock, creationSettings);</span><br><span class="line">    <span class="keyword">return</span> mock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">createMock</span><span class="params">(MockCreationSettings&lt;T&gt; settings)</span> </span>&#123;</span><br><span class="line">    MockHandler mockHandler =  createMockHandler(settings);</span><br><span class="line"></span><br><span class="line">    T mock = mockMaker.createMock(settings, mockHandler);</span><br><span class="line"></span><br><span class="line">    Object spiedInstance = settings.getSpiedInstance();</span><br><span class="line">    <span class="keyword">if</span> (spiedInstance != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">new</span> LenientCopyTool().copyToMock(spiedInstance, mock);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/09/22/Mockito使用与原理/代理方法.png" alt="代理方法"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>《测试驱动开发》</p>
+<p>《淘宝接口测试白皮书》</p>
 
       
 
@@ -584,7 +282,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hive</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mockito</a>
         		</li>
       		
 		</ul>
@@ -596,7 +298,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Hive//" class="article-tag-list-link color5">Hive</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -651,7 +353,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://tedhacker.top/2018/11/03/Hive使用总结/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://tedhacker.top/2019/09/22/Mockito使用与原理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -665,18 +367,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/15/java-util-concurrent包之tools/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          java.util.concurrent包之tools
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/03/Java8使用小结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java8使用小结</div>
+    <a href="/2019/09/15/java-util-concurrent包之tools/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java.util.concurrent包之tools</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -703,7 +396,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础类型"><span class="toc-number">1.</span> <span class="toc-text">基础类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换"><span class="toc-number">2.</span> <span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建表"><span class="toc-number">3.</span> <span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除表"><span class="toc-number">4.</span> <span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载数据"><span class="toc-number">5.</span> <span class="toc-text">加载数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新增数据"><span class="toc-number">6.</span> <span class="toc-text">新增数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表连接"><span class="toc-number">7.</span> <span class="toc-text">表连接</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#等值连接"><span class="toc-number">7.0.1.</span> <span class="toc-text">等值连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#左外连接"><span class="toc-number">7.0.2.</span> <span class="toc-text">左外连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#右外连接"><span class="toc-number">7.0.3.</span> <span class="toc-text">右外连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#左半连接"><span class="toc-number">7.0.4.</span> <span class="toc-text">左半连接</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#条件函数"><span class="toc-number">8.</span> <span class="toc-text">条件函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#IF"><span class="toc-number">8.0.1.</span> <span class="toc-text">IF</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#NVL"><span class="toc-number">8.0.2.</span> <span class="toc-text">NVL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#COALESCE"><span class="toc-number">8.0.3.</span> <span class="toc-text">COALESCE</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CASE"><span class="toc-number">8.0.4.</span> <span class="toc-text">CASE</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期函数"><span class="toc-number">9.</span> <span class="toc-text">日期函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串转换"><span class="toc-number">10.</span> <span class="toc-text">字符串转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开窗函数"><span class="toc-number">11.</span> <span class="toc-text">开窗函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WITH查询"><span class="toc-number">12.</span> <span class="toc-text">WITH查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">13.</span> <span class="toc-text">参考</span></a></li>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Mock"><span class="toc-number">1.</span> <span class="toc-text">什么是Mock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mockito是什么"><span class="toc-number">2.</span> <span class="toc-text">Mockito是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mockito的主要方法"><span class="toc-number">3.</span> <span class="toc-text">Mockito的主要方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖配置"><span class="toc-number">3.1.</span> <span class="toc-text">依赖配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法调用验证"><span class="toc-number">3.2.</span> <span class="toc-text">方法调用验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数匹配"><span class="toc-number">3.3.</span> <span class="toc-text">参数匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟异常"><span class="toc-number">3.4.</span> <span class="toc-text">模拟异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他"><span class="toc-number">3.5.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mockito的原理"><span class="toc-number">4.</span> <span class="toc-text">Mockito的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -732,7 +425,7 @@ if(true){
   	repo: 'Comments',
   	owner: 'TedHacker',
   	admin: ['TedHacker'],
-  	id: 'Sat Nov 03 2018 21:00:00 GMT+0800',
+  	id: 'Sun Sep 22 2019 15:28:08 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
